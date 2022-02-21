@@ -2,13 +2,13 @@ const path = require('path');
 
 module.exports = {
 	mode: 'development',
-	target: 'web',
+	target: 'node',
 	module: {
 		rules: [
 			{
 				test: /\.js$/,
 				enforce: 'pre',
-				use: ['source-map-loader'],
+				use: ['source-map-loader', 'babel-loader'],
 			},
 		],
 	},
