@@ -1,3 +1,3 @@
-# js-base-starter
+# Miaam Scripts
 
-Starter for JS Projects using webpack, eslint, babel
+Scripts for configuring and running miaam game projects
