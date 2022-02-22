@@ -1,6 +1,6 @@
 {
 	"name": "miaam-scripts",
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"description": "Miaam Scripts",
 	"main": "index.js",
 	"scripts": {
@@ -43,13 +43,11 @@
 		"@babel/preset-env": "^7.16.4",
 		"@babel/register": "^7.16.0",
 		"@pixi/jsdoc-template": "^2.6.0",
-		"@swc/core": "^1.2.126",
 		"babel-loader": "^8.2.3",
 		"chalk": "^5.0.0",
 		"commander": "^9.0.0",
 		"concurrently": "^6.4.0",
 		"cross-spawn": "^7.0.3",
-		"esbuild": "^0.14.10",
 		"eslint": "^7.26.0",
 		"eslint-config-airbnb-base": "^14.2.1",
 		"eslint-config-prettier": "^8.3.0",
@@ -57,9 +55,7 @@
 		"eslint-plugin-prettier": "^3.4.1",
 		"jsdoc": "^3.6.7",
 		"prettier": "^2.4.1",
-		"source-map-loader": "^3.0.0",
-		"uglify-js": "^3.14.5",
-		"webpack": "^5.69.1"
+		"source-map-loader": "^3.0.0"
 	},
 	"repository": {
 		"type": "git",
