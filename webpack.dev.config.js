@@ -8,15 +8,16 @@ module.exports = {
 			{
 				test: /\.js$/,
 				enforce: 'pre',
-				use: ['source-map-loader', 'babel-loader'],
+				use: ['babel-loader'],
 			},
 		],
 	},
 	entry: {
-		index: './src/index.js',
+		'miaam-script': './scripts/miaam-scripts.js',
 	},
 	output: {
-		path: path.join(__dirname, 'public', 'js'),
+		filename: '[name]',
+		path: path.join(__dirname, 'bin'),
 	},
 	watch: true,
 	watchOptions: {

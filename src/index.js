@@ -1,3 +1,4 @@
-const x = 5;
+import * as utils from './utils';
+import start from './start';
 
-console.log('hello', x);
+export { start, utils };
