@@ -5,8 +5,8 @@ import { buildWebpackConfig, loadMiaamOptions } from './utils';
 
 const compileAndWatch = ({ projectRoot, webpackOptions }) => {
 	console.log(webpackOptions);
-	const webpackConfigFilePath = path.join(__dirname, '../configs/webpackConfig.json');
-	fs.writeFileSync(webpackConfigFilePath, JSON.stringify(webpackOptions));
+	const webpackConfigFilePath = path.join(__dirname, '../configs/webpackConfig.js');
+	fs.writeFileSync(webpackConfigFilePath, `module.exports = ${webpackOptions}`);
 	const compile = spawn('webpack', [], { cwd: projectRoot });
 	compile.stdout.on('data', (data) => {
 		console.log(`stdout: ${data}`);

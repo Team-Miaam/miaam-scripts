@@ -13,7 +13,7 @@ module.exports = {
 		],
 	},
 	entry: {
-		'miaam-script': './scripts/miaam-scripts.js',
+		'miaam-scripts': './scripts/miaam-scripts.js',
 	},
 	output: {
 		filename: '[name]',

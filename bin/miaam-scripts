@@ -774,9 +774,9 @@ const compileAndWatch = ({
 }) => {
   console.log(webpackOptions);
 
-  const webpackConfigFilePath = _path.default.join(__dirname, '../configs/webpackConfig.json');
+  const webpackConfigFilePath = _path.default.join(__dirname, '../configs/webpackConfig.js');
 
-  _fs.default.writeFileSync(webpackConfigFilePath, JSON.stringify(webpackOptions));
+  _fs.default.writeFileSync(webpackConfigFilePath, `module.exports = ${webpackOptions}`);
 
   const compile = (0, _crossSpawn.spawn)('webpack', [], {
     cwd: projectRoot
@@ -833,6 +833,8 @@ exports["default"] = void 0;
 
 var _path = _interopRequireDefault(__webpack_require__(/*! path */ "path"));
 
+var _slash = _interopRequireDefault(__webpack_require__(/*! ./slash */ "./src/utils/slash.js"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const buildWebpackConfig = ({
@@ -840,30 +842,32 @@ const buildWebpackConfig = ({
   miaamOptions
 }) => {
   const config = {};
-  config.compileConfig = {
-    mode: miaamOptions.mode,
-    target: 'web',
-    module: {
-      rules: [{
-        test: /\.js$/,
-        enforce: 'pre',
-        use: ['source-map-loader', 'babel-loader']
-      }]
-    },
-    entry: {
-      index: miaamOptions.index
-    },
-    output: {
-      path: _path.default.join(projectRoot, miaamOptions.paths.public, 'js')
-    },
-    devtool: 'source-map'
-  };
+  config.compileConfig = `
+		mode: '${miaamOptions.mode}',
+		target: 'web',
+		module: {
+			rules: [
+				{
+					test: /\\.js$/,
+					enforce: 'pre',
+					use: ['source-map-loader', 'babel-loader'],
+				},
+			],
+		},
+		entry: {
+			index: '${miaamOptions.index}',
+		},
+		output: {
+			path: '${(0, _slash.default)(_path.default.join(projectRoot, miaamOptions.paths.public, 'js'))}'
+		},
+		devtool: 'source-map',
+	`;
 
   if (miaamOptions.watch) {
-    config.watchConfig = {
-      watch: miaamOptions.watch,
-      watchOptions: miaamOptions.watchOptions
-    };
+    config.watchConfig = `
+			watch: ${miaamOptions.watch},
+			watchOptions: ${JSON.stringify(miaamOptions.watchOptions)},
+		`;
   }
 
   return config;
@@ -1011,6 +1015,12 @@ Object.defineProperty(exports, "loadMiaamOptions", ({
     return _loadMiaamOptions.default;
   }
 }));
+Object.defineProperty(exports, "slash", ({
+  enumerable: true,
+  get: function () {
+    return _slash.default;
+  }
+}));
 Object.defineProperty(exports, "warning", ({
   enumerable: true,
   get: function () {
@@ -1029,6 +1039,8 @@ var _errors = _interopRequireDefault(__webpack_require__(/*! ./error/errors */ "
 var _error = __webpack_require__(/*! ./error/error */ "./src/utils/error/error.js");
 
 var _buildWebpackConfig = _interopRequireDefault(__webpack_require__(/*! ./buildWebpackConfig */ "./src/utils/buildWebpackConfig.js"));
+
+var _slash = _interopRequireDefault(__webpack_require__(/*! ./slash */ "./src/utils/slash.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1124,6 +1136,27 @@ const loadMiaamOptions = ({
 };
 
 var _default = loadMiaamOptions;
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ "./src/utils/slash.js":
+/*!****************************!*\
+  !*** ./src/utils/slash.js ***!
+  \****************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+const slash = path => path.replace(/\\/g, '/');
+
+var _default = slash;
 exports["default"] = _default;
 
 /***/ }),
@@ -5214,7 +5247,7 @@ const supportsColor = {
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"miaam-scripts","version":"0.0.3","description":"Miaam Scripts","main":"index.js","scripts":{"format":"prettier --write .","lint":"eslint .","lint:staged":"lint-staged --config .lintstagedrc.json","build":"webpack --config ./webpack.dev.config.js","test":"mocha","test:watch":"mocha --watch || exit 0","doc:contrib":"rm -rf ./docs/ && jsdoc -c ./contrib.jsdoc.json -R README.md","doc:dev":"rm -rf ./docs/ && jsdoc -c ./dev.jsdoc.json -R README.md","doc":"concurrently npm:doc:*","prepare":"husky install"},"engines":{"node":">=14.0.0"},"bin":{"miaam-scripts":"./bin/miaam-script"},"keywords":["Miaam","Web","JavaScript","Scripts"],"author":"Team Miaam Core","license":"MIT","devDependencies":{"chai":"^4.3.4","husky":"^7.0.4","lint-staged":"^12.1.3","mocha":"^9.1.3","webpack-cli":"^4.9.1"},"dependencies":{"@babel/core":"^7.16.0","@babel/eslint-parser":"^7.16.3","@babel/eslint-plugin":"^7.13.16","@babel/preset-env":"^7.16.4","@babel/register":"^7.16.0","@pixi/jsdoc-template":"^2.6.0","@swc/core":"^1.2.126","babel-loader":"^8.2.3","chalk":"^5.0.0","commander":"^9.0.0","concurrently":"^6.4.0","cross-spawn":"^7.0.3","esbuild":"^0.14.10","eslint":"^7.26.0","eslint-config-airbnb-base":"^14.2.1","eslint-config-prettier":"^8.3.0","eslint-plugin-import":"^2.25.3","eslint-plugin-prettier":"^3.4.1","jsdoc":"^3.6.7","prettier":"^2.4.1","source-map-loader":"^3.0.0","uglify-js":"^3.14.5","webpack":"^5.69.1"},"repository":{"type":"git","url":"https://github.com/Team-Miaam/miaam-scripts"},"bugs":{"url":"https://github.com/Team-Miaam/miaam-scripts/issues"},"homepage":"https://github.com/Team-Miaam/miaam-scripts"}');
+module.exports = JSON.parse('{"name":"miaam-scripts","version":"0.0.4","description":"Miaam Scripts","main":"index.js","scripts":{"format":"prettier --write .","lint":"eslint .","lint:staged":"lint-staged --config .lintstagedrc.json","build":"webpack --config ./webpack.dev.config.js","test":"mocha","test:watch":"mocha --watch || exit 0","doc:contrib":"rm -rf ./docs/ && jsdoc -c ./contrib.jsdoc.json -R README.md","doc:dev":"rm -rf ./docs/ && jsdoc -c ./dev.jsdoc.json -R README.md","doc":"concurrently npm:doc:*","prepare":"husky install"},"engines":{"node":">=14.0.0"},"bin":{"miaam-scripts":"./bin/miaam-scripts"},"keywords":["Miaam","Web","JavaScript","Scripts"],"author":"Team Miaam Core","license":"MIT","devDependencies":{"chai":"^4.3.4","husky":"^7.0.4","lint-staged":"^12.1.3","mocha":"^9.1.3","webpack-cli":"^4.9.2"},"dependencies":{"@babel/core":"^7.16.0","@babel/eslint-parser":"^7.16.3","@babel/eslint-plugin":"^7.13.16","@babel/preset-env":"^7.16.4","@babel/register":"^7.16.0","@pixi/jsdoc-template":"^2.6.0","@swc/core":"^1.2.126","babel-loader":"^8.2.3","chalk":"^5.0.0","commander":"^9.0.0","concurrently":"^6.4.0","cross-spawn":"^7.0.3","esbuild":"^0.14.10","eslint":"^7.26.0","eslint-config-airbnb-base":"^14.2.1","eslint-config-prettier":"^8.3.0","eslint-plugin-import":"^2.25.3","eslint-plugin-prettier":"^3.4.1","jsdoc":"^3.6.7","prettier":"^2.4.1","source-map-loader":"^3.0.0","uglify-js":"^3.14.5","webpack":"^5.69.1"},"repository":{"type":"git","url":"https://github.com/Team-Miaam/miaam-scripts"},"bugs":{"url":"https://github.com/Team-Miaam/miaam-scripts/issues"},"homepage":"https://github.com/Team-Miaam/miaam-scripts"}');
 
 /***/ })
 
