@@ -20,7 +20,7 @@ const buildWebpackConfig = ({ projectRoot, miaamOptions }) => {
 			index: `${miaamOptions.index}`,
 		},
 		output: {
-			path: `${slash(path.join(projectRoot, miaamOptions.paths.public, 'js'))}`,
+			path: `${slash(path.join(projectRoot, 'dist'))}`,
 		},
 		devtool: 'source-map',
 	};

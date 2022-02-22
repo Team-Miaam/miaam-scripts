@@ -1,12 +1,13 @@
-const path = require('path');
+const choosePort = require('../utils');
 
 const buildLiveServerConfig = ({ projectRoot, miaamOptions }) => {
 	const config = {
-		port: miaamOptions.server.port,
-		root: path.join(projectRoot, miaamOptions.paths.public),
+		port: choosePort(miaamOptions.server.host, miaamOptions.server.port),
 		open: true,
-		file: 'index.html',
-		logLevel: 2,
+		static: {
+			directory: projectRoot,
+		},
+		hot: true,
 	};
 
 	return config;
