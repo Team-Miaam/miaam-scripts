@@ -7,7 +7,7 @@ const compileAndWatch = ({ projectRoot, webpackOptions }) => {
 	console.log(webpackOptions);
 	const webpackConfigFilePath = path.join(__dirname, '../configs/webpackConfig.js');
 	fs.writeFileSync(webpackConfigFilePath, `module.exports = ${webpackOptions}`);
-	const compile = spawn('webpack', [], { cwd: projectRoot });
+	const compile = spawn('webpack', ['--config', webpackConfigFilePath], { cwd: projectRoot });
 	compile.stdout.on('data', (data) => {
 		console.log(`stdout: ${data}`);
 	});
@@ -20,7 +20,8 @@ const compileAndWatch = ({ projectRoot, webpackOptions }) => {
 const start = ({ projectRoot, miaamrc }) => {
 	const miaamOptions = loadMiaamOptions({ projectRoot, miaamrc });
 	const { compileConfig, watchConfig } = buildWebpackConfig({ projectRoot, miaamOptions });
-	compileAndWatch({ projectRoot, webpackOptions: { ...compileConfig, ...watchConfig } });
+	console.log(compileConfig, watchConfig);
+	compileAndWatch({ projectRoot, webpackOptions: `{ ${compileConfig} ${watchConfig} }` });
 };
 
 export default start;
