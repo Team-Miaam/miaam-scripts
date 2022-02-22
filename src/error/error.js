@@ -1,16 +1,20 @@
-// eslint-disable-next-line import/no-unresolved
-import chalk from 'chalk';
+const chalk = require('chalk');
 
 const errorColor = chalk.bold.red;
 const warningColor = chalk.hex('#FFA500');
 
-const errorFunction = ({ message, error }) => {
+const errorFunction = ({ message, error, exit }) => {
 	console.log(errorColor(`${error.message} ${message ? `: ${message}` : ''}`));
-	process.exit(error.code);
+	if (exit) {
+		process.exit(error.code);
+	}
 };
 
 const warningFunction = ({ message, warning }) => {
 	console.log(warningColor(`${warning.message} ${message ? `: ${message}` : ''}`));
 };
 
-export { warningFunction as warning, errorFunction as error };
+module.exports = {
+	warning: warningFunction,
+	error: errorFunction,
+};

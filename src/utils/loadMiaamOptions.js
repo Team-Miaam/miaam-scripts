@@ -1,5 +1,5 @@
-import loadMiaamFile from './loadMiaamFile';
-import getMiaamOptions from './getMiaamOptions';
+const loadMiaamFile = require('./loadMiaamFile');
+const getMiaamOptions = require('./getMiaamOptions');
 
 const loadMiaamOptions = ({ projectRoot, miaamrc }) => {
 	if (!projectRoot) {
@@ -17,4 +17,4 @@ const loadMiaamOptions = ({ projectRoot, miaamrc }) => {
 	return miaamOptions;
 };
 
-export default loadMiaamOptions;
+module.exports = loadMiaamOptions;

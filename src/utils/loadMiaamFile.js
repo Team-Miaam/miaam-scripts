@@ -1,7 +1,6 @@
-import fs from 'fs';
-import path from 'path';
-import errors from './error/errors';
-import { error } from './error/error';
+const fs = require('fs');
+const path = require('path');
+const { errors, error } = require('../error');
 
 const loadMiaamFile = (directoryPath) => {
 	const miaamFilePath = fs.readdirSync(directoryPath).find((file) => file.match(/^(\.miaamrc\.)(.+\.)*((c|m)?js)$/));
@@ -16,4 +15,4 @@ const loadMiaamFile = (directoryPath) => {
 	return miaamOptions;
 };
 
-export default loadMiaamFile;
+module.exports = loadMiaamFile;

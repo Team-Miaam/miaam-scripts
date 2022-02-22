@@ -1,20 +1,15 @@
 module.exports = {
 	env: {
-		node: true,
+		commonjs: true,
+		es2021: true,
 	},
 	extends: ['airbnb-base', 'prettier'],
-	parser: '@babel/eslint-parser',
 	parserOptions: {
-		sourceType: 'module',
-		babelOptions: {
-			configFile: './.babelrc',
-		},
+		ecmaVersion: 12,
 	},
-	plugins: ['@babel', 'import', 'prettier'],
+	plugins: ['import', 'prettier'],
 	rules: {
 		'prettier/prettier': 'error',
-		// printWidth rule in prettier is not working
-		'max-len': ['error', { code: 120, tabWidth: 2 }],
 		'no-console': 0,
 	},
 };

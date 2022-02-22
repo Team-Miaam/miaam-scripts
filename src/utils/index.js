@@ -1,9 +1,11 @@
-import getMiaamOptions from './getMiaamOptions';
-import loadMiaamFile from './loadMiaamFile';
-import loadMiaamOptions from './loadMiaamOptions';
-import errors from './error/errors';
-import { error, warning } from './error/error';
-import buildWebpackConfig from './buildWebpackConfig';
-import slash from './slash';
+const getMiaamOptions = require('./getMiaamOptions');
+const loadMiaamFile = require('./loadMiaamFile');
+const loadMiaamOptions = require('./loadMiaamOptions');
+const slash = require('./slash');
 
-export { getMiaamOptions, loadMiaamFile, loadMiaamOptions, errors, error, warning, buildWebpackConfig, slash };
+module.exports = {
+	getMiaamOptions,
+	loadMiaamFile,
+	loadMiaamOptions,
+	slash,
+};

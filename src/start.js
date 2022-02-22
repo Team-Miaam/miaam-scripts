@@ -1,25 +1,42 @@
-import fs from 'fs';
-import path from 'path';
-import { spawn } from 'cross-spawn';
-import { buildWebpackConfig, loadMiaamOptions } from './utils';
+const { buildWebpackConfig, buildLiveServerConfig, createCompiler } = require('./webpack');
+const { loadMiaamOptions } = require('./utils');
+const { error, errors, warning } = require('./error');
 
-const compileAndWatch = ({ projectRoot, webpackOptions }) => {
-	const webpackConfigFilePath = path.join(__dirname, '../configs/webpackConfig.js');
-	fs.writeFileSync(webpackConfigFilePath, `module.exports = ${webpackOptions}`);
-	const compile = spawn('webpack', ['serve', '--config', webpackConfigFilePath], { cwd: projectRoot });
-	compile.stdout.on('data', (data) => {
-		console.log(`stdout: ${data}`);
-	});
+const watch = ({ compiler, watchConfig }) => {
+	compiler.watch(watchConfig, (errs, stats) => {
+		if (errs) {
+			errs.foreach(({ message, details }) =>
+				error({ message: `${message}${details ? `\n${details}` : ''}`, error: errors.COMPILER_ERROR })
+			);
+			return;
+		}
 
-	compile.stderr.on('data', (data) => {
-		console.error(`stderr: ${data}`);
+		const info = stats.toJson();
+
+		if (stats.hasErrors()) {
+			info.errors.forEach(({ message, details }) =>
+				error({ message: `${message}${details ? `\n${details}` : ''}`, error: errors.COMPILER_ERROR, exit: false })
+			);
+		}
+
+		if (stats.hasWarnings()) {
+			info.warnings.forEach(({ message, details }) =>
+				warning({ message: `${message}${details ? `\n${details}` : ''}`, warning: errors.COMPILER_ERROR })
+			);
+		}
 	});
 };
+
+// eslint-disable-next-line no-unused-vars
+const serve = ({ compiler, liveServerConfig }) => {};
 
 const start = ({ projectRoot, miaamrc }) => {
 	const miaamOptions = loadMiaamOptions({ projectRoot, miaamrc });
-	const { compileConfig, watchConfig, devServerConfig } = buildWebpackConfig({ projectRoot, miaamOptions });
-	compileAndWatch({ projectRoot, webpackOptions: `{ ${compileConfig} ${watchConfig} ${devServerConfig} }` });
+	const { compileConfig, watchConfig } = buildWebpackConfig({ projectRoot, miaamOptions });
+	const { liveServerConfig } = buildLiveServerConfig({ projectRoot, miaamOptions });
+	const compiler = createCompiler({ projectRoot, webpackOptions: { ...compileConfig } });
+	watch({ compiler, watchConfig });
+	serve({ projectRoot, webpackOptions: `{ ${liveServerConfig} }` });
 };
 
-export default start;
+module.exports = start;

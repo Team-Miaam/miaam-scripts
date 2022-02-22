@@ -1,4 +1,5 @@
-import * as utils from './utils';
-import start from './start';
+const start = require('./start');
 
-export { start, utils };
+module.exports = {
+	start,
+};

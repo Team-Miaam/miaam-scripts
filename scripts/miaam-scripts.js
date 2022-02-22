@@ -1,8 +1,10 @@
-import { Command } from 'commander';
-// eslint-disable-next-line import/no-unresolved
-import chalk from 'chalk';
-import packageOptions from '../package.json';
-import { start } from '../src';
+#!/usr/bin/env node
+const fs = require('fs');
+const path = require('path');
+const { Command } = require('commander');
+const { start } = require('../src');
+
+const packageOptions = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json'), 'utf-8'));
 
 const program = new Command();
 
@@ -12,7 +14,6 @@ program
 	.command('start')
 	.option('--miaamrc [miaamOptions]', 'Path to miaamrc file')
 	.action(({ miaamrc }) => {
-		console.log(chalk.yellow('start'));
 		start({ projectRoot: process.cwd(), miaamrc });
 	});
 

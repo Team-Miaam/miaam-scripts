@@ -3,6 +3,10 @@ const errors = {
 		code: 1,
 		message: 'miaam configuration file not found',
 	},
+	COMPILER_ERROR: {
+		code: 2,
+		message: 'error during compiling',
+	},
 };
 
-export default errors;
+module.exports = errors;
