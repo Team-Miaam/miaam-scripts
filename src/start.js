@@ -1,9 +1,11 @@
+const chalk = require('chalk');
 const { buildWebpackConfig, buildLiveServerConfig, createCompiler } = require('./webpack');
-const { loadMiaamOptions } = require('./utils');
+const { loadMiaamOptions, clearConsole } = require('./utils');
 const { error, errors, warning } = require('./error');
 
 const watch = ({ compiler, watchConfig }) => {
 	compiler.watch(watchConfig, (errs, stats) => {
+		clearConsole();
 		if (errs) {
 			errs.foreach(({ message, details }) =>
 				error({ message: `${message}${details ? `\n${details}` : ''}`, error: errors.COMPILER_ERROR })
@@ -24,6 +26,9 @@ const watch = ({ compiler, watchConfig }) => {
 				warning({ message: `${message}${details ? `\n${details}` : ''}`, warning: errors.COMPILER_ERROR })
 			);
 		}
+
+		console.log(`compile time: ${chalk.green(info.time / 1000)} sec`);
+		console.log(chalk.yellow('watching changes...'));
 	});
 };
 
