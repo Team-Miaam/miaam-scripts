@@ -7,7 +7,7 @@ const compileAndWatch = ({ projectRoot, webpackOptions }) => {
 	console.log(webpackOptions);
 	const webpackConfigFilePath = path.join(__dirname, '../configs/webpackConfig.js');
 	fs.writeFileSync(webpackConfigFilePath, `module.exports = ${webpackOptions}`);
-	const compile = spawn('webpack', ['--config', webpackConfigFilePath], { cwd: projectRoot });
+	const compile = spawn('webpack', ['serve', '--config', webpackConfigFilePath], { cwd: projectRoot });
 	compile.stdout.on('data', (data) => {
 		console.log(`stdout: ${data}`);
 	});
