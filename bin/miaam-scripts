@@ -799,15 +799,15 @@ const start = ({
   });
   const {
     compileConfig,
-    watchConfig
+    watchConfig,
+    devServerConfig
   } = (0, _utils.buildWebpackConfig)({
     projectRoot,
     miaamOptions
   });
-  console.log(compileConfig, watchConfig);
   compileAndWatch({
     projectRoot,
-    webpackOptions: `{ ${compileConfig} ${watchConfig} }`
+    webpackOptions: `{ ${compileConfig} ${watchConfig} ${devServerConfig} }`
   });
 };
 
@@ -860,6 +860,23 @@ const buildWebpackConfig = ({
 			path: '${(0, _slash.default)(_path.default.join(projectRoot, miaamOptions.paths.public, 'js'))}'
 		},
 		devtool: 'source-map',
+	`;
+  config.devServerConfig = `
+		devServer: {
+			open: true,
+			port: ${miaamOptions.server.port},
+			static: [
+				{
+					directory: '${(0, _slash.default)(_path.default.join(projectRoot, miaamOptions.paths.public))}',
+					publicPath: '/'
+				},
+				{
+					directory: '${(0, _slash.default)(_path.default.join(projectRoot, miaamOptions.paths.assets))}',
+					publicPath: '/assets'
+				},
+			],
+			watchFiles: ['${(0, _slash.default)(_path.default.join(projectRoot, miaamOptions.paths.public))}/**/*'],
+		},
 	`;
 
   if (miaamOptions.watch) {

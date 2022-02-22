@@ -19,9 +19,8 @@ const compileAndWatch = ({ projectRoot, webpackOptions }) => {
 
 const start = ({ projectRoot, miaamrc }) => {
 	const miaamOptions = loadMiaamOptions({ projectRoot, miaamrc });
-	const { compileConfig, watchConfig } = buildWebpackConfig({ projectRoot, miaamOptions });
-	console.log(compileConfig, watchConfig);
-	compileAndWatch({ projectRoot, webpackOptions: `{ ${compileConfig} ${watchConfig} }` });
+	const { compileConfig, watchConfig, devServerConfig } = buildWebpackConfig({ projectRoot, miaamOptions });
+	compileAndWatch({ projectRoot, webpackOptions: `{ ${compileConfig} ${watchConfig} ${devServerConfig} }` });
 };
 
 export default start;

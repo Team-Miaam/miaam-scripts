@@ -25,6 +25,24 @@ const buildWebpackConfig = ({ projectRoot, miaamOptions }) => {
 		devtool: 'source-map',
 	`;
 
+	config.devServerConfig = `
+		devServer: {
+			open: true,
+			port: ${miaamOptions.server.port},
+			static: [
+				{
+					directory: '${slash(path.join(projectRoot, miaamOptions.paths.public))}',
+					publicPath: '/'
+				},
+				{
+					directory: '${slash(path.join(projectRoot, miaamOptions.paths.assets))}',
+					publicPath: '/assets'
+				},
+			],
+			watchFiles: ['${slash(path.join(projectRoot, miaamOptions.paths.public))}/**/*'],
+		},
+	`;
+
 	if (miaamOptions.watch) {
 		config.watchConfig = `
 			watch: ${miaamOptions.watch},
