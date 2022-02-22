@@ -1,6 +1,6 @@
 {
 	"name": "miaam-scripts",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "Miaam Scripts",
 	"scripts": {
 		"format": "prettier --write .",
@@ -28,6 +28,8 @@
 	"author": "Team Miaam Core",
 	"license": "MIT",
 	"devDependencies": {
+		"@babel/eslint-parser": "^7.16.3",
+		"@babel/eslint-plugin": "^7.13.16",
 		"chai": "^4.3.4",
 		"eslint": "^8.9.0",
 		"eslint-config-airbnb-base": "^15.0.0",
@@ -41,8 +43,6 @@
 	},
 	"dependencies": {
 		"@babel/core": "^7.16.0",
-		"@babel/eslint-parser": "^7.16.3",
-		"@babel/eslint-plugin": "^7.13.16",
 		"@babel/preset-env": "^7.16.4",
 		"@babel/register": "^7.16.0",
 		"@pixi/jsdoc-template": "^2.6.0",
