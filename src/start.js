@@ -4,7 +4,6 @@ import { spawn } from 'cross-spawn';
 import { buildWebpackConfig, loadMiaamOptions } from './utils';
 
 const compileAndWatch = ({ projectRoot, webpackOptions }) => {
-	console.log(webpackOptions);
 	const webpackConfigFilePath = path.join(__dirname, '../configs/webpackConfig.js');
 	fs.writeFileSync(webpackConfigFilePath, `module.exports = ${webpackOptions}`);
 	const compile = spawn('webpack', ['serve', '--config', webpackConfigFilePath], { cwd: projectRoot });
