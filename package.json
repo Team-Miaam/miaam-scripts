@@ -1,6 +1,6 @@
 {
 	"name": "miaam-scripts",
-	"version": "0.1.6",
+	"version": "0.1.7",
 	"description": "Miaam Scripts",
 	"scripts": {
 		"prepare": "husky install",
@@ -12,7 +12,6 @@
 		"doc:contrib": "rm -rf ./docs/ && jsdoc -c ./contrib.jsdoc.json -R README.md",
 		"doc:dev": "rm -rf ./docs/ && jsdoc -c ./dev.jsdoc.json -R README.md",
 		"doc": "concurrently npm:doc:*",
-		"publish": "git push origin master&&npm publish"
 	},
 	"engines": {
 		"node": ">=14.0.0"
