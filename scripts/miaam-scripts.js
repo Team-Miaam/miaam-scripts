@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 const { Command } = require('commander');
-const { start } = require('../src');
+const { start, build } = require('../src');
 
 const packageOptions = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json'), 'utf-8'));
 
@@ -15,6 +15,13 @@ program
 	.option('--miaamrc [miaamOptions]', 'Path to miaamrc file')
 	.action(async ({ miaamrc }) => {
 		await start({ projectRoot: process.cwd(), miaamrc });
+	});
+
+program
+	.command('build')
+	.option('--miaamrc [miaamOptions]', 'Path to miaamrc file')
+	.action(async ({ miaamrc }) => {
+		await build({ projectRoot: process.cwd(), miaamrc });
 	});
 
 program.parseAsync();

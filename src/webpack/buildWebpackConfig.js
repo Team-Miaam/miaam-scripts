@@ -12,7 +12,15 @@ const buildWebpackConfig = ({ projectRoot, miaamOptions }) => {
 				{
 					test: /\.js$/,
 					enforce: 'pre',
-					use: ['source-map-loader', 'babel-loader'],
+					use: [
+						'source-map-loader',
+						{
+							loader: 'babel-loader',
+							options: {
+								presets: ['@babel/preset-env'],
+							},
+						},
+					],
 				},
 			],
 		},
@@ -20,7 +28,9 @@ const buildWebpackConfig = ({ projectRoot, miaamOptions }) => {
 			index: `${miaamOptions.index}`,
 		},
 		output: {
+			filename: '[name].js',
 			path: `${slash(path.join(projectRoot, 'dist'))}`,
+			publicPath: '/dist',
 		},
 		devtool: 'source-map',
 	};

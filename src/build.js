@@ -1,8 +1,16 @@
 const chalk = require('chalk');
+const { buildWebpackConfig, createCompiler } = require('./webpack');
+const { loadMiaamOptions, clearConsole } = require('./utils');
 const { error, errors, warning } = require('./error');
 
-const build = ({ compiler, watchConfig }) => {
-	compiler.run(watchConfig, (errs, stats) => {
+const isInteractive = process.stdout.isTTY;
+
+const compile = ({ compiler }) => {
+	compiler.run((errs, stats) => {
+		if (isInteractive) {
+			clearConsole();
+		}
+
 		if (errs) {
 			errs.foreach(({ message, details }) =>
 				error({ message: `${message}${details ? `\n${details}` : ''}`, error: errors.COMPILER_ERROR })
@@ -26,7 +34,22 @@ const build = ({ compiler, watchConfig }) => {
 
 		console.log('build generated');
 		console.log(`build time: ${chalk.green(info.time / 1000)} sec`);
+
+		compiler.close((closeError) => {
+			error({ message: `${closeError}`, error: errors.COMPILER_ERROR });
+		});
 	});
+};
+
+// eslint-disable-next-line no-unused-vars
+const packFiles = ({ projectRoot, miaamOptions }) => {};
+
+const build = async ({ projectRoot, miaamrc }) => {
+	const miaamOptions = loadMiaamOptions({ projectRoot, miaamrc });
+	const { compileConfig } = buildWebpackConfig({ projectRoot, miaamOptions });
+	const compiler = createCompiler({ projectRoot, webpackOptions: { ...compileConfig } });
+	compile({ compiler });
+	packFiles({ projectRoot, miaamOptions });
 };
 
 module.exports = build;
