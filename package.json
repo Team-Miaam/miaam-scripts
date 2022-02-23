@@ -1,8 +1,9 @@
 {
 	"name": "miaam-scripts",
-	"version": "0.1.4",
+	"version": "0.1.5",
 	"description": "Miaam Scripts",
 	"scripts": {
+		"prepare": "husky install",
 		"format": "prettier --write .",
 		"lint": "eslint .",
 		"lint:staged": "lint-staged --config .lintstagedrc.json",
@@ -11,7 +12,7 @@
 		"doc:contrib": "rm -rf ./docs/ && jsdoc -c ./contrib.jsdoc.json -R README.md",
 		"doc:dev": "rm -rf ./docs/ && jsdoc -c ./dev.jsdoc.json -R README.md",
 		"doc": "concurrently npm:doc:*",
-		"prepare": "husky install"
+		"publish": "git push origin master && npm publish"
 	},
 	"engines": {
 		"node": ">=14.0.0"
