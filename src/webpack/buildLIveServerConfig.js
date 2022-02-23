@@ -7,7 +7,6 @@ const buildLiveServerConfig = async ({ projectRoot, miaamOptions }) => {
 		static: {
 			directory: projectRoot,
 		},
-		hot: true,
 	};
 
 	return config;
