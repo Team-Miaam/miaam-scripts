@@ -9,16 +9,14 @@ const serve = ({ liveServer }) => {
 		if (isInteractive) {
 			clearConsole();
 		}
-		console.log('aa');
 		console.log(chalk.cyan('Starting the development server...\n'));
 	});
 };
 
-const start = ({ projectRoot, miaamrc }) => {
+const start = async ({ projectRoot, miaamrc }) => {
 	const miaamOptions = loadMiaamOptions({ projectRoot, miaamrc });
-	console.log(miaamOptions);
 	const { compileConfig } = buildWebpackConfig({ projectRoot, miaamOptions });
-	const liveServerConfig = buildLiveServerConfig({ projectRoot, miaamOptions });
+	const liveServerConfig = await buildLiveServerConfig({ projectRoot, miaamOptions });
 	const compiler = createCompiler({ projectRoot, webpackOptions: { ...compileConfig } });
 	const liveServer = createLiveServer({ liveServerConfig, compiler });
 	serve({ liveServer });

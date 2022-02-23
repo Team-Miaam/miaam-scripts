@@ -7,12 +7,13 @@ const clearConsole = require('./clearConsole');
 
 const isInteractive = process.stdout.isTTY;
 
-const choosePort = (host, defaultPort) =>
-	detect(defaultPort, host).then(
+const choosePort = (defaultPort) =>
+	detect(defaultPort).then(
 		(port) =>
 			new Promise((resolve) => {
 				if (port === defaultPort) {
 					resolve(port);
+					return;
 				}
 				const message =
 					process.platform !== 'win32' && defaultPort < 1024 && !isRoot()
@@ -40,9 +41,7 @@ const choosePort = (host, defaultPort) =>
 			}),
 		(err) => {
 			throw new Error(
-				`${chalk.red(`Could not find an open port at ${chalk.bold(host)}.`)}\n${
-					`Network error message: ${err.message}` || err
-				}\n`
+				`${chalk.red(`Could not find an open port.`)}\n${`Network error message: ${err.message}` || err}\n`
 			);
 		}
 	);

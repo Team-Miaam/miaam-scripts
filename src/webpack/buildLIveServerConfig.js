@@ -1,8 +1,8 @@
-const choosePort = require('../utils');
+const { choosePort } = require('../utils');
 
-const buildLiveServerConfig = ({ projectRoot, miaamOptions }) => {
+const buildLiveServerConfig = async ({ projectRoot, miaamOptions }) => {
 	const config = {
-		port: choosePort(miaamOptions.server.host, miaamOptions.server.port),
+		port: await choosePort(miaamOptions.server.port),
 		open: true,
 		static: {
 			directory: projectRoot,
