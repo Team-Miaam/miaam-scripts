@@ -1,6 +1,6 @@
 {
 	"name": "miaam-scripts",
-	"version": "0.2.1",
+	"version": "0.2.2",
 	"description": "Miaam Scripts",
 	"scripts": {
 		"prepare": "husky install",
