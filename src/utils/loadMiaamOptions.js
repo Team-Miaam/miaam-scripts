@@ -13,7 +13,7 @@ const loadMiaamOptions = ({ projectRoot, miaamrc }) => {
 		miaamOptions = loadMiaamFile({ projectRoot });
 	}
 
-	miaamOptions = getMiaamOptions(miaamOptions);
+	miaamOptions = getMiaamOptions({ projectRoot, miaamOptions });
 	return miaamOptions;
 };
 

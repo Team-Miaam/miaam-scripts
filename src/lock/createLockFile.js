@@ -3,11 +3,13 @@ const path = require('path');
 
 const miaamLockFileName = 'miaam-lock.json';
 const createLockFile = ({ projectRoot }) => {
-	const miaamLockFile = fs.readdirSync(projectRoot).find((file) => file === miaamLockFileName);
-	if (miaamLockFile) {
-		return;
+	const miaamLockFilePath = path.join(projectRoot, miaamLockFileName);
+	const miaamLockFileExists = fs.existsSync(miaamLockFilePath);
+	if (miaamLockFileExists) {
+		return miaamLockFilePath;
 	}
-	fs.writeFileSync(path.join(projectRoot, miaamLockFileName), '{}');
+	fs.writeFileSync(miaamLockFilePath, '{}');
+	return miaamLockFilePath;
 };
 
 module.exports = createLockFile;

@@ -2,7 +2,7 @@ const chalk = require('chalk');
 const { buildWebpackConfig, createCompiler } = require('./webpack');
 const { loadMiaamOptions } = require('./utils');
 const { error, errors, warning } = require('./error');
-const { buildAssetsIndex, createLockFile } = require('./lock');
+const { buildAssetsIndex, createLockFile, writeLockFile } = require('./lock');
 
 const compile = ({ compiler }) => {
 	compiler.run((errs, stats) => {
@@ -42,9 +42,10 @@ const build = async ({ projectRoot, miaamrc }) => {
 	const miaamOptions = loadMiaamOptions({ projectRoot, miaamrc });
 	const { compileConfig } = buildWebpackConfig({ projectRoot, miaamOptions });
 	const compiler = createCompiler({ projectRoot, webpackOptions: { ...compileConfig } });
-	createLockFile({ projectRoot });
+	const lockFilePath = createLockFile({ projectRoot });
+	const assetsIndex = buildAssetsIndex({ projectRoot, miaamOptions });
+	writeLockFile({ lockFilePath, assetsIndex });
 	compile({ compiler });
-	buildAssetsIndex({ miaamOptions });
 	packFiles({ projectRoot, buildPath: miaamOptions.paths.build });
 };
 

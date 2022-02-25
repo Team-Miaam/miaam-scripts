@@ -1,11 +1,11 @@
-// const tilemapDependencyResolver = require('miaam-assets/deps-resolvers/tilemap');
+const tilemapDependencyResolver = require('miaam-assets/deps-resolvers/tilemap');
 
-const getMiaamOptions = (configuredOptions) => ({
-	...configuredOptions,
+const getMiaamOptions = ({ projectRoot, miaamOptions }) => ({
+	...miaamOptions,
 	'deps-resolvers': [
 		{
 			test: /\.(tilemap|tileanimation).json/,
-			use: [{ resolver: 'miaam-assets/' }],
+			use: [{ resolver: tilemapDependencyResolver, options: { projectRoot } }],
 		},
 	],
 });
