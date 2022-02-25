@@ -1,6 +1,6 @@
 {
 	"name": "miaam-scripts",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"description": "Miaam Scripts",
 	"scripts": {
 		"prepare": "husky install",
@@ -53,6 +53,7 @@
 		"detect-port-alt": "^1.1.6",
 		"is-root": "^2.1.0",
 		"jsdoc": "^3.6.7",
+		"miaam-assets": "^0.0.1",
 		"prompts": "^2.4.2",
 		"source-map-loader": "^3.0.0",
 		"webpack": "^5.64.4",

@@ -1,16 +1,10 @@
 const chalk = require('chalk');
 const { buildWebpackConfig, createCompiler } = require('./webpack');
-const { loadMiaamOptions, clearConsole } = require('./utils');
+const { loadMiaamOptions } = require('./utils');
 const { error, errors, warning } = require('./error');
-
-const isInteractive = process.stdout.isTTY;
 
 const compile = ({ compiler }) => {
 	compiler.run((errs, stats) => {
-		if (isInteractive) {
-			clearConsole();
-		}
-
 		if (errs) {
 			errs.foreach(({ message, details }) =>
 				error({ message: `${message}${details ? `\n${details}` : ''}`, error: errors.COMPILER_ERROR })

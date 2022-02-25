@@ -1,14 +1,9 @@
 const chalk = require('chalk');
 const { buildWebpackConfig, buildLiveServerConfig, createCompiler, createLiveServer } = require('./webpack');
-const { loadMiaamOptions, clearConsole } = require('./utils');
-
-const isInteractive = process.stdout.isTTY;
+const { loadMiaamOptions } = require('./utils');
 
 const serve = ({ liveServer }) => {
 	liveServer.startCallback(() => {
-		if (isInteractive) {
-			clearConsole();
-		}
 		console.log(chalk.cyan('Starting the development server...\n'));
 	});
 };

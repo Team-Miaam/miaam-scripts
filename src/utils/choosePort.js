@@ -3,8 +3,6 @@ const isRoot = require('is-root');
 const prompts = require('prompts');
 const chalk = require('chalk');
 
-const clearConsole = require('./clearConsole');
-
 const isInteractive = process.stdout.isTTY;
 
 const choosePort = (defaultPort) =>
@@ -20,7 +18,6 @@ const choosePort = (defaultPort) =>
 						? `Admin permissions are required to run a server on a port below 1024.`
 						: `Something is already running on port ${defaultPort}.`;
 				if (isInteractive) {
-					clearConsole();
 					const question = {
 						type: 'confirm',
 						name: 'shouldChangePort',

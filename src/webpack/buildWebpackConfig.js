@@ -6,11 +6,11 @@ const buildWebpackConfig = ({ projectRoot, miaamOptions }) => {
 
 	config.compileConfig = {
 		mode: `${miaamOptions.mode}`,
-		target: 'web',
+		target: ['web'],
 		module: {
 			rules: [
 				{
-					test: /\.js$/,
+					test: /\.(m)?js$/,
 					enforce: 'pre',
 					use: [
 						'source-map-loader',
@@ -21,6 +21,11 @@ const buildWebpackConfig = ({ projectRoot, miaamOptions }) => {
 							},
 						},
 					],
+				},
+				{
+					test: /\.tilemap.json/,
+					enforce: 'pre',
+					use: ['miaam-assets/loaders/tilemap'],
 				},
 			],
 		},
@@ -33,6 +38,9 @@ const buildWebpackConfig = ({ projectRoot, miaamOptions }) => {
 			publicPath: '/dist',
 		},
 		devtool: 'source-map',
+		experiments: {
+			topLevelAwait: true,
+		},
 	};
 
 	if (miaamOptions.watch) {
