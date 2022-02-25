@@ -10,7 +10,7 @@ const loadMiaamOptions = ({ projectRoot, miaamrc }) => {
 	if (miaamrc) {
 		miaamOptions = import(miaamrc);
 	} else {
-		miaamOptions = loadMiaamFile(projectRoot);
+		miaamOptions = loadMiaamFile({ projectRoot });
 	}
 
 	miaamOptions = getMiaamOptions(miaamOptions);
