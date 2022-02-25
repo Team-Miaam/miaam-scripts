@@ -22,7 +22,7 @@ const compile = ({ compiler }) => {
 
 		if (stats.hasWarnings()) {
 			info.warnings.forEach(({ message, details }) =>
-				warning({ message: `${message}${details ? `\n${details}` : ''}`, warning: errors.COMPILER_ERROR })
+				warning({ message: `${message}${details ? `\n${details}` : ''}`, warning: errors.COMPILER_WARNING })
 			);
 		}
 

@@ -7,6 +7,10 @@ const errors = {
 		code: 2,
 		message: 'error during compiling',
 	},
+	COMPILER_WARNING: {
+		code: 2,
+		message: 'warning during compiling',
+	},
 };
 
 module.exports = errors;
