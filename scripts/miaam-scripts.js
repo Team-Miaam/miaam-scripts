@@ -13,15 +13,15 @@ program.version(packageOptions.version);
 program
 	.command('start')
 	.option('--miaamrc [miaamOptions]', 'Path to miaamrc file')
-	.action(async ({ miaamrc }) => {
-		await start({ projectRoot: process.cwd(), miaamrc });
+	.action(({ miaamrc }) => {
+		start({ projectRoot: process.cwd(), miaamrc });
 	});
 
 program
 	.command('build')
 	.option('--miaamrc [miaamOptions]', 'Path to miaamrc file')
-	.action(async ({ miaamrc }) => {
-		await build({ projectRoot: process.cwd(), miaamrc });
+	.action(({ miaamrc }) => {
+		build({ projectRoot: process.cwd(), miaamrc });
 	});
 
-program.parseAsync();
+program.parse();

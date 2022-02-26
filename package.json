@@ -1,6 +1,6 @@
 {
 	"name": "miaam-scripts",
-	"version": "0.2.4",
+	"version": "0.2.5",
 	"description": "Miaam Scripts",
 	"scripts": {
 		"prepare": "husky install",
@@ -48,6 +48,7 @@
 		"@pixi/jsdoc-template": "^2.6.0",
 		"babel-loader": "^8.2.3",
 		"chalk": "^4.1.2",
+		"chokidar": "^3.5.3",
 		"commander": "^9.0.0",
 		"cross-spawn": "^7.0.3",
 		"detect-port-alt": "^1.1.6",

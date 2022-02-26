@@ -40,11 +40,13 @@ const packFiles = ({ projectRoot, buildPath }) => {};
 
 const build = async ({ projectRoot, miaamrc }) => {
 	const miaamOptions = loadMiaamOptions({ projectRoot, miaamrc });
-	const { compileConfig } = buildWebpackConfig({ projectRoot, miaamOptions });
-	const compiler = createCompiler({ projectRoot, webpackOptions: { ...compileConfig } });
+
 	const lockFilePath = createLockFile({ projectRoot });
 	const assetsIndex = buildAssetsIndex({ projectRoot, miaamOptions });
 	writeLockFile({ lockFilePath, assetsIndex });
+
+	const { compileConfig } = buildWebpackConfig({ projectRoot, miaamOptions });
+	const compiler = createCompiler({ projectRoot, webpackOptions: { ...compileConfig } });
 	compile({ compiler });
 	packFiles({ projectRoot, buildPath: miaamOptions.paths.build });
 };

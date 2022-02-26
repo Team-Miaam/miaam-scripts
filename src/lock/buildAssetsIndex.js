@@ -1,14 +1,14 @@
 const fs = require('fs');
 const path = require('path');
 
-const { getAllFiles, addDependenciesToIndex, createConsumableAssetsIndex } = require('../utils');
+const { getAllFiles, addDependenciesToIndex } = require('../utils');
 
 const buildAssetsIndex = ({ projectRoot, miaamOptions }) => {
 	const assetsPath = miaamOptions.paths.assets;
 	const dependencyResolvers = miaamOptions['deps-resolvers'];
 	const files = getAllFiles({ root: '/', directoryPath: assetsPath });
 
-	const assetsIndexSet = {};
+	const assetsIndex = {};
 
 	dependencyResolvers.forEach(({ test, use }) => {
 		const selectedFiles = files.filter((file) => file.match(test));
@@ -17,12 +17,11 @@ const buildAssetsIndex = ({ projectRoot, miaamOptions }) => {
 				const context = { options, resourcePath: file };
 				const content = fs.readFileSync(path.join(projectRoot, file), 'utf-8');
 				const dependencies = resolver(content, context);
-				addDependenciesToIndex({ assetsIndexSet, file, dependencies });
+				addDependenciesToIndex({ assetsIndexSet: assetsIndex, file, dependencies });
 			});
 		});
 	});
 
-	const assetsIndex = createConsumableAssetsIndex(assetsIndexSet);
 	return assetsIndex;
 };
 

@@ -1,6 +1,7 @@
 const chalk = require('chalk');
 const { buildWebpackConfig, buildLiveServerConfig, createCompiler, createLiveServer } = require('./webpack');
 const { loadMiaamOptions } = require('./utils');
+const { createLockFile, watchAssetsIndex, createAssetsWatcher } = require('./lock');
 
 const serve = ({ liveServer }) => {
 	liveServer.startCallback(() => {
@@ -10,9 +11,14 @@ const serve = ({ liveServer }) => {
 
 const start = async ({ projectRoot, miaamrc }) => {
 	const miaamOptions = loadMiaamOptions({ projectRoot, miaamrc });
-	const { compileConfig } = buildWebpackConfig({ projectRoot, miaamOptions });
+
+	const lockFilePath = createLockFile({ projectRoot });
+	const assetsWatcher = createAssetsWatcher({ miaamOptions });
+	watchAssetsIndex({ projectRoot, miaamOptions, lockFilePath, watcher: assetsWatcher });
+
+	const { compileConfig, watchConfig } = buildWebpackConfig({ projectRoot, miaamOptions });
 	const liveServerConfig = await buildLiveServerConfig({ projectRoot, miaamOptions });
-	const compiler = createCompiler({ projectRoot, webpackOptions: { ...compileConfig } });
+	const compiler = createCompiler({ projectRoot, webpackOptions: { ...compileConfig, ...watchConfig } });
 	const liveServer = createLiveServer({ liveServerConfig, compiler });
 	serve({ liveServer });
 };

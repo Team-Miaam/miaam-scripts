@@ -64,8 +64,8 @@ const buildWebpackConfig = ({ projectRoot, miaamOptions }) => {
 		},
 	};
 
-	if (miaamOptions.watch) {
-		config.watchConfig = miaamOptions.watchOptions;
+	if (miaamOptions.watchOptions) {
+		config.watchConfig = { watchOptions: miaamOptions.watchOptions };
 	}
 
 	return config;

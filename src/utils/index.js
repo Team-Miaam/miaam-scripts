@@ -6,7 +6,6 @@ const choosePort = require('./choosePort');
 const getAllFiles = require('./getAllFiles');
 const addDependenciesToIndex = require('./addDependenciesToIndex');
 const getFileContentFromCache = require('./getFileContentFromCache');
-const createConsumableAssetsIndex = require('./createConsumableAssetsIndex');
 
 module.exports = {
 	getMiaamOptions,
@@ -17,5 +16,4 @@ module.exports = {
 	getAllFiles,
 	addDependenciesToIndex,
 	getFileContentFromCache,
-	createConsumableAssetsIndex,
 };
