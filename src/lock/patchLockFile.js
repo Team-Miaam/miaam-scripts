@@ -2,13 +2,20 @@ const fs = require('fs');
 const stringify = require('json-stringify-pretty-compact');
 const createConsumableAssetsIndex = require('./createConsumableAssetsIndex');
 
-const patchLockFile = ({ lockFilePath, assetsIndex }) => {
-	const consumableAssetsIndex = createConsumableAssetsIndex(assetsIndex);
+const patchLockFile = ({ lockFilePath, assetsIndex, chunksAssetsIndex }) => {
+	const lockData = JSON.parse(fs.readFileSync(lockFilePath, 'utf-8'));
 
-	const previousLockData = JSON.parse(fs.readFileSync(lockFilePath, 'utf-8'));
-	const currentLockData = { ...previousLockData, assets: { ...consumableAssetsIndex } };
+	if (assetsIndex) {
+		const consumableAssetsIndex = createConsumableAssetsIndex(assetsIndex);
+		lockData.assets = consumableAssetsIndex;
+	}
 
-	const data = stringify(currentLockData);
+	if (chunksAssetsIndex) {
+		const consumableChunksAssetsIndex = createConsumableAssetsIndex(chunksAssetsIndex);
+		lockData.chunks = consumableChunksAssetsIndex;
+	}
+
+	const data = stringify(lockData);
 	fs.writeFileSync(lockFilePath, data);
 };
 

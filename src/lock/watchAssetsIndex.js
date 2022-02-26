@@ -18,7 +18,7 @@ const watchAssetsIndex = ({ projectRoot, miaamOptions, lockFilePath, watcher }) 
 				const context = { options, resourcePath: file };
 				const content = fs.readFileSync(path.join(projectRoot, file), 'utf-8');
 				const dependencies = resolver(content, context);
-				addDependenciesToIndex({ assetsIndexSet: assetsIndex, file, dependencies });
+				addDependenciesToIndex({ assetsIndexSet: assetsIndex, file: path.join('/', file), dependencies });
 			});
 		});
 	};
