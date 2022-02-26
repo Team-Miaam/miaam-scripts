@@ -47,7 +47,7 @@ const buildWebpackConfig = ({ projectRoot, miaamOptions }) => {
 		plugins: [
 			...miaamOptions['bundler-plugins'],
 			new SourceMapDevToolPlugin({
-				filename: '[name][hash:8].map',
+				filename: '[file].map[query]',
 				publicPath,
 			}),
 		],
