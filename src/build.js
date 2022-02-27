@@ -43,6 +43,7 @@ const build = async ({ projectRoot, miaamrc }) => {
 
 	const lockFilePath = createLockFile({ projectRoot });
 	const assetsIndex = buildAssetsIndex({ projectRoot, miaamOptions });
+	// TODO: convert to patch with overwrite option
 	writeLockFile({ lockFilePath, assetsIndex });
 
 	const { compileConfig } = buildWebpackConfig({ projectRoot, miaamOptions });
