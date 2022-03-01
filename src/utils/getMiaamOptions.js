@@ -17,6 +17,18 @@ const getMiaamOptions = ({ projectRoot, miaamOptions }) => ({
 			use: [{ resolver: tilesetDependencyResolver, options: { projectRoot } }],
 		},
 	],
+	'bundler-loaders': [
+		{
+			test: /\.(tilemap|tileanimation).json/,
+			enforce: 'pre',
+			use: [{ loader: 'miaam-assets/loaders/tilemap', options: { projectRoot } }],
+		},
+		{
+			test: /\.(tileset).json/,
+			enforce: 'pre',
+			use: [{ loader: 'miaam-assets/loaders/tileset', options: { projectRoot } }],
+		},
+	],
 	'bundler-plugins': [
 		new ChunkAssetsCompilerPlugin({
 			miaamOptions,

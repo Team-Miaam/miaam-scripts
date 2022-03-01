@@ -32,16 +32,7 @@ const buildWebpackConfig = ({ projectRoot, miaamOptions }) => {
 						},
 					],
 				},
-				{
-					test: /\.(tilemap|tileanimation).json/,
-					enforce: 'pre',
-					use: [{ loader: 'miaam-assets/loaders/tilemap', options: { projectRoot } }],
-				},
-				{
-					test: /\.(tileset).json/,
-					enforce: 'pre',
-					use: [{ loader: 'miaam-assets/loaders/tileset', options: { projectRoot } }],
-				},
+				...miaamOptions['bundler-loaders'],
 			],
 		},
 		plugins: [

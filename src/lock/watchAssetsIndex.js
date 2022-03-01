@@ -18,7 +18,7 @@ const watchAssetsIndex = ({ projectRoot, miaamOptions, lockFilePath, watcher }) 
 				const context = { options, resourcePath: file };
 				const content = fs.readFileSync(path.join(projectRoot, file), 'utf-8');
 				const dependencies = resolver(content, context);
-				addDependenciesToIndex({ assetsIndexSet: assetsIndex, file: path.join('/', file), dependencies });
+				addDependenciesToIndex({ assetsIndexSet: assetsIndex, file, dependencies });
 			});
 		});
 	};
@@ -27,29 +27,43 @@ const watchAssetsIndex = ({ projectRoot, miaamOptions, lockFilePath, watcher }) 
 		delete assetsIndex[file];
 	};
 
+	const fixedPath = (callback) => (file) => callback(path.join('/', file).replaceAll('\\', '/'));
+
 	watcher
-		.on('add', (resourcePath) => {
-			updateAssetsIndex(resourcePath);
-			patchLockFile({ lockFilePath, assetsIndex });
-		})
-		.on('change', (resourcePath) => {
-			removeAssetsIndex(resourcePath);
-			updateAssetsIndex(resourcePath);
-			patchLockFile({ lockFilePath, assetsIndex });
-		})
-		.on('unlink', (resourcePath) => {
-			removeAssetsIndex(resourcePath);
-			patchLockFile({ lockFilePath, assetsIndex });
-		})
-		.on('unlinkDir', (resourcePath) => {
-			const directoryPrefix = path.join(assetsPath, path.relative(assetsPath, resourcePath));
-			Object.keys(assetsIndex).forEach((file) => {
-				if (file.startsWith(directoryPrefix)) {
-					removeAssetsIndex(file);
-				}
-			});
-			patchLockFile({ lockFilePath, assetsIndex });
-		});
+		.on(
+			'add',
+			fixedPath((resourcePath) => {
+				updateAssetsIndex(resourcePath);
+				patchLockFile({ lockFilePath, assetsIndex });
+			})
+		)
+		.on(
+			'change',
+			fixedPath((resourcePath) => {
+				removeAssetsIndex(resourcePath);
+				updateAssetsIndex(resourcePath);
+				patchLockFile({ lockFilePath, assetsIndex });
+			})
+		)
+		.on(
+			'unlink',
+			fixedPath((resourcePath) => {
+				removeAssetsIndex(resourcePath);
+				patchLockFile({ lockFilePath, assetsIndex });
+			})
+		)
+		.on(
+			'unlinkDir',
+			fixedPath((resourcePath) => {
+				const directoryPrefix = path.join(assetsPath, path.relative(assetsPath, resourcePath));
+				Object.keys(assetsIndex).forEach((file) => {
+					if (file.startsWith(directoryPrefix)) {
+						removeAssetsIndex(file);
+					}
+				});
+				patchLockFile({ lockFilePath, assetsIndex });
+			})
+		);
 };
 
 module.exports = watchAssetsIndex;

@@ -1,10 +1,9 @@
 const addDependenciesToIndex = ({ assetsIndexSet, file, dependencies }) => {
-	const updatedFileName = file.replaceAll('\\', '/');
-	if (!assetsIndexSet[updatedFileName]) {
+	if (!assetsIndexSet[file]) {
 		// eslint-disable-next-line no-param-reassign
-		assetsIndexSet[updatedFileName] = new Set();
+		assetsIndexSet[file] = new Set();
 	}
-	dependencies.forEach((dependency) => assetsIndexSet[updatedFileName].add(dependency));
+	dependencies.forEach((dependency) => assetsIndexSet[file].add(dependency));
 };
 
 module.exports = addDependenciesToIndex;
