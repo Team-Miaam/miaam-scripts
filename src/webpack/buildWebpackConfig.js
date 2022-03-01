@@ -28,6 +28,7 @@ const buildWebpackConfig = ({ projectRoot, miaamOptions }) => {
 										},
 									],
 								],
+								plugins: [['miaam-assets/plugins/transpiler/dynamic-asset-import', { projectRoot, miaamOptions }]],
 							},
 						},
 					],
