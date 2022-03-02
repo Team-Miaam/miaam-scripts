@@ -12,7 +12,6 @@ const patchLockFile = ({ lockFilePath, assetsIndex, chunksAssetsIndex }) => {
 
 	if (chunksAssetsIndex) {
 		const consumableChunksAssetsIndex = createConsumableAssetsIndex(chunksAssetsIndex);
-		console.log(consumableChunksAssetsIndex);
 		lockData.chunks = consumableChunksAssetsIndex;
 	}
 
