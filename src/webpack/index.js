@@ -1,5 +1,5 @@
 const buildWebpackConfig = require('./buildWebpackConfig');
-const buildLiveServerConfig = require('./buildLIveServerConfig');
+const buildLiveServerConfig = require('./buildLiveServerConfig');
 const createCompiler = require('./createCompiler');
 const createLiveServer = require('./createLiveServer');
 

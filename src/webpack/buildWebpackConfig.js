@@ -15,6 +15,7 @@ const buildWebpackConfig = ({ projectRoot, miaamOptions }) => {
 					enforce: 'pre',
 					use: [
 						'source-map-loader',
+						'miaam-assets/loaders/create-chunk',
 						{
 							loader: 'babel-loader',
 							options: {
@@ -28,7 +29,7 @@ const buildWebpackConfig = ({ projectRoot, miaamOptions }) => {
 										},
 									],
 								],
-								plugins: [['miaam-assets/plugins/transpiler/dynamic-create-chunk', {}]],
+								// plugins: [['miaam-assets/plugins/transpiler/dynamic-create-chunk', {}]],
 							},
 						},
 					],
