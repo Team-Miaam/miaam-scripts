@@ -38,6 +38,7 @@ const getMiaamOptions = ({ projectRoot, miaamOptions }) => ({
 			},
 		}),
 	],
+	'compiler-plugins': [['miaam-assets/plugins/transpiler/dynamic-create-chunk', {}]],
 });
 
 module.exports = getMiaamOptions;

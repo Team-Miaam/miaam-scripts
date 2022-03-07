@@ -1,6 +1,6 @@
 {
 	"name": "miaam-scripts",
-	"version": "0.3.8",
+	"version": "0.3.9",
 	"description": "Miaam Scripts",
 	"scripts": {
 		"prepare": "husky install",
@@ -55,7 +55,7 @@
 		"is-root": "^2.1.0",
 		"jsdoc": "^3.6.7",
 		"json-stringify-pretty-compact": "^3.0.0",
-		"miaam-assets": "^0.2.0",
+		"miaam-assets": "^0.2.1",
 		"prompts": "^2.4.2",
 		"source-map-loader": "^3.0.0",
 		"webpack": "^5.64.4",
