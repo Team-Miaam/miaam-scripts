@@ -55,7 +55,7 @@
 		"is-root": "^2.1.0",
 		"jsdoc": "^3.6.7",
 		"json-stringify-pretty-compact": "^3.0.0",
-		"miaam-assets": "^0.2.2",
+		"miaam-assets": "^0.2.6",
 		"prompts": "^2.4.2",
 		"source-map-loader": "^3.0.0",
 		"webpack": "^5.64.4",
