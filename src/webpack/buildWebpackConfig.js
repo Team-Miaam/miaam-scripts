@@ -28,7 +28,7 @@ const buildWebpackConfig = ({ projectRoot, miaamOptions }) => {
 										},
 									],
 								],
-								plugins: [...miaamOptions['compiler-plugins']],
+								plugins: [...miaamOptions['transpiler-plugins']],
 							},
 						},
 						'source-map-loader',

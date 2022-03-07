@@ -21,12 +21,12 @@ const getMiaamOptions = ({ projectRoot, miaamOptions }) => ({
 		{
 			test: /\.(tilemap|tileanimation).json/,
 			enforce: 'pre',
-			use: [{ loader: 'miaam-assets/loaders/tilemap', options: { projectRoot } }],
+			use: [{ loader: 'miaam-assets/loaders/bundler/tilemap', options: { projectRoot } }],
 		},
 		{
 			test: /\.(tileset).json/,
 			enforce: 'pre',
-			use: [{ loader: 'miaam-assets/loaders/tileset', options: { projectRoot } }],
+			use: [{ loader: 'miaam-assets/loaders/bundler/tileset', options: { projectRoot } }],
 		},
 	],
 	'bundler-plugins': [
@@ -38,7 +38,7 @@ const getMiaamOptions = ({ projectRoot, miaamOptions }) => ({
 			},
 		}),
 	],
-	'compiler-plugins': [['miaam-assets/plugins/transpiler/dynamic-create-chunk', {}]],
+	'transpiler-plugins': [['miaam-assets/plugins/transpiler/dynamic-create-chunk', {}]],
 });
 
 module.exports = getMiaamOptions;
